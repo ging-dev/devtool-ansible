@@ -1,0 +1,5 @@
+---
+- name: Show PHP version
+  ansible.builtin.command:
+    cmd: php -v
+  changed_when: false

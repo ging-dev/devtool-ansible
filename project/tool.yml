@@ -1,0 +1,6 @@
+---
+- name: Tool
+  hosts: all
+  become: true
+  roles:
+    - php

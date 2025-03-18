@@ -1,0 +1,9 @@
+all:
+  hosts:
+    # localhost:
+    #   ansible_connection: local
+    #   ansible_become_password: 'yourpass'
+    # remote:
+    #   ansible_host: host
+    #   ansible_user: username
+    #   ansible_become_password: sudo_password
