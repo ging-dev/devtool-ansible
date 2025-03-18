@@ -1,0 +1,18 @@
+---
+- name: Download the Symfony setup script
+  ansible.builtin.get_url:
+    url: https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh
+    dest: /tmp/setup.deb.sh
+    mode: '0755'
+
+- name: Execute the Symfony setup script
+  ansible.builtin.shell: /tmp/setup.deb.sh
+  args:
+    executable: /bin/bash
+  changed_when: true
+
+- name: Install Symfony CLI using apt
+  ansible.builtin.apt:
+    name: symfony-cli
+    state: present
+    update_cache: true

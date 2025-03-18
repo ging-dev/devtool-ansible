@@ -6,19 +6,10 @@
     update_cache: true
 - name: Install required PHP packages
   ansible.builtin.apt:
-    name:
-      - php{{ php_version }}-bcmath
-      - php{{ php_version }}-cli
-      - php{{ php_version }}-common
-      - php{{ php_version }}-curl
-      - php{{ php_version }}-intl
-      - php{{ php_version }}-mbstring
-      - php{{ php_version }}-opcache
-      - php{{ php_version }}-phpdbg
-      - php{{ php_version }}-readline
-      - php{{ php_version }}-sqlite3
-      - php{{ php_version }}-xdebug
-      - php{{ php_version }}-xml
-      - php{{ php_version }}-zip
+    name: "{{ php_packages }}"
     state: present
   notify: Show PHP version
+- name: Symfony features
+  ansible.builtin.import_tasks:
+    file: symfony-cli.yml
+  when: with_symfony | default(false)

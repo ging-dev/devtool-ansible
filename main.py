@@ -3,6 +3,7 @@ import questionary
 import requests
 import typer
 from rich import print
+from typing import Optional
 
 
 def get_php_versions() -> list[str]:
@@ -21,15 +22,15 @@ app = typer.Typer()
 
 
 @app.command()
-def install_php():
+def install_php(symfony: Optional[bool] = None):
     version = questionary.select(
         "Choose your PHP version", choices=get_php_versions()
     ).ask()
     if version:
         ansible_runner.run(
             private_data_dir="./project",
-            playbook="tool.yml",
-            extravars={"php_version": version},
+            playbook="php.yml",
+            extravars={"php_version": version, "with_symfony": symfony},
         )
 
 

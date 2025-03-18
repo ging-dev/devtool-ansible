@@ -1,0 +1,12 @@
+---
+php_extensions:
+  - cli
+  - common
+  - curl
+  - intl
+  - mbstring
+  - sqlite3
+  - xdebug
+  - xml
+  - zip
+php_packages: "{{ ['php' ~ php_version] | product(php_extensions) | map('join', '-') }}"

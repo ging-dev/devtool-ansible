@@ -1,5 +1,5 @@
 ---
-- name: Tool
+- name: PHP setup
   hosts: all
   become: true
   roles:
