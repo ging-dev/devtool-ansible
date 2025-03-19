@@ -18,6 +18,10 @@ def get_php_versions() -> list[str]:
     return php_versions
 
 
+def event_handler(event: dict):
+    pass
+
+
 app = typer.Typer()
 
 
@@ -27,11 +31,16 @@ def install_php(symfony: Optional[bool] = None):
         "Choose your PHP version", choices=get_php_versions()
     ).ask()
     if version:
-        ansible_runner.run(
+        config = ansible_runner.RunnerConfig(
             private_data_dir="./project",
             playbook="php.yml",
             extravars={"php_version": version, "with_symfony": symfony},
         )
+        config.prepare()
+        config.suppress_output_file = True
+        config.suppress_env_files = True
+        r = ansible_runner.Runner(config, event_handler=event_handler)
+        r.run()
 
 
 @app.command()
